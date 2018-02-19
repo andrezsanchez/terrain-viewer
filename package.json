@@ -1,0 +1,35 @@
+{
+  "name": "idk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node test-runner.ts",
+    "start": "budo index.js -- -t babelify",
+    "build": "rollup -c",
+    "serve": "http-server ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/invariant": "^2.2.29",
+    "babel-polyfill": "^6.26.0",
+    "invariant": "^2.2.2"
+  },
+  "devDependencies": {
+    "alsatian": "^2.2.1",
+    "babel-preset-env": "^1.6.0",
+    "babelify": "^7.3.0",
+    "http-server": "^0.11.1",
+    "rollup": "^0.56.2",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.1.0",
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "rollup-plugin-string": "^2.0.2",
+    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-typescript2": "^0.11.1",
+    "typescript": "^2.7.2"
+  }
+}
