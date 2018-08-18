@@ -201,7 +201,7 @@ function requestRender() {
 }
 
 function animate(time) {
-  window.requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
   const delta = (time - previousTime) * 0.001;
   previousTime = time;
