@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "ts-node test-runner.ts",
-    "start": "budo index.js -- -t babelify",
     "build": "rollup -c",
     "serve": "http-server ."
   },
