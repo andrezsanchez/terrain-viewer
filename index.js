@@ -48,7 +48,7 @@ const shader = new Shader(shaderProgram);
 
 const viewUniform = new Mat4Uniform('view', new Matrix4());
 viewUniform.data.setIdentity();
-viewUniform.data.setPosition(new Vector3().set(0, 0, -10));
+viewUniform.data.setPosition(new Vector3(0, 0, -10));
 
 const camera = new Camera();
 camera.updatePose();
@@ -230,14 +230,14 @@ getElevationTile(7 * 64, 14 * 64, 12).then((tile) => {
 
     // Get a base frame to add from
     dest.copy(dimensions);
-    Vector3.divideScalar(dest, dest, 2);
-    Vector3.multiplyScalar(dest, dest, -1);
+    dest.divideScalar(2);
+    dest.multiplyScalar(-1);
 
     // Add the current coordinate
-    Vector3.add(dest, dest, temp);
+    dest.add(temp);
 
     // Scale down size
-    Vector3.divideScalar(dest, dest, 2);
+    dest.divideScalar(2);
 
     dest.z = 0.025 * parseImageDataElevation(imageData, temp.x, temp.y);
   }

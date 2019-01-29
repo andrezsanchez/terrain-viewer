@@ -8,12 +8,12 @@ export function createLatticeLines(columns, rows, getPosition) {
   const numLines = numBaseLines + latticeRows + latticeColumns;
   const latticeLines = new Float32Array(numLines * 6);
 
-  const center = new Vector3();
-  const right = new Vector3();
-  const down = new Vector3();
-  const position = new Vector3();
+  const center = new Vector3(0, 0, 0);
+  const right = new Vector3(0, 0, 0);
+  const down = new Vector3(0, 0, 0);
+  const position = new Vector3(0, 0, 0);
 
-  const dimensions = Vector3.fromCoordinates(latticeColumns, latticeRows, 0);
+  const dimensions = new Vector3(latticeColumns, latticeRows, 0);
   for (let y = 0; y < latticeRows; y++) {
     for (let x = 0; x < latticeColumns; x++) {
       const index = (y * latticeColumns + x) * 12;

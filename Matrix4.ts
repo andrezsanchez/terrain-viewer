@@ -2,25 +2,25 @@ import { Vector3 } from './Vector3';
 
 export class Matrix4 {
   constructor(
-    public buffer:Float64Array=new Float64Array(16)
+    public buffer: Float64Array = new Float64Array(16)
   ) {}
 
-  get(i:number):number {
+  get(i: number): number {
     return this.buffer[i];
   }
 
-  setV(i:number, value:number) {
+  setV(i: number, value: number) {
     this.buffer[i] = value;
   }
 
-  copy(from:Matrix4) {
+  copy(from: Matrix4) {
     let i;
     for (i = 0; i < 16; i++) {
       this.buffer[i] = from.buffer[i];
     }
   }
 
-  copyRotation(from:Matrix4) {
+  copyRotation(from: Matrix4) {
     this.setV(0, from.get(0));
     this.setV(1, from.get(1));
     this.setV(2, from.get(2));
@@ -58,7 +58,7 @@ export class Matrix4 {
   /**
    * This assumes the matrices are column-major.
    */
-  static multiply(dest:Matrix4, a:Matrix4, b:Matrix4) {
+  static multiply(dest: Matrix4, a: Matrix4, b: Matrix4) {
     const dest0  = (a.get(0) * b.get(0))  + (a.get(4) * b.get(1))  +  (a.get(8) * b.get(2))  + (a.get(12) * b.get(3));
     const dest1  = (a.get(1) * b.get(0))  + (a.get(5) * b.get(1))  +  (a.get(9) * b.get(2))  + (a.get(13) * b.get(3));
     const dest2  = (a.get(2) * b.get(0))  + (a.get(6) * b.get(1))  + (a.get(10) * b.get(2))  + (a.get(14) * b.get(3));
@@ -93,7 +93,14 @@ export class Matrix4 {
     dest.setV(15, dest15);
   }
 
-  setPerspective(left:number, right:number, top:number, bottom:number, near:number, far:number) {
+  setPerspective(
+    left: number,
+    right: number,
+    top: number,
+    bottom: number,
+    near: number,
+    far: number,
+  ) {
     const x = (2 * near) / (right - left);
     const y = (2 * near) / (top - bottom);
     const a = (right + left) / (right - left);
@@ -122,41 +129,27 @@ export class Matrix4 {
     this.setV(15, 0);
   }
 
-  setPosition(vec3:Vector3) {
+  setPosition(vec3: Vector3) {
     this.setV(12, vec3.x);
     this.setV(13, vec3.y);
     this.setV(14, vec3.z);
   }
 
-  getXAxis():Vector3 {
-    return new Vector3(new Float64Array(this.buffer.buffer, 0, 3));
-  }
-
-  getYAxis():Vector3 {
+  getPosition(): Vector3 {
     return new Vector3(
-      new Float64Array(this.buffer.buffer, 4 * Float64Array.BYTES_PER_ELEMENT, 3)
+      this.buffer[12],
+      this.buffer[13],
+      this.buffer[14],
     );
   }
 
-  getZAxis():Vector3 {
-    return new Vector3(
-      new Float64Array(this.buffer.buffer, 8 * Float64Array.BYTES_PER_ELEMENT, 3)
-    );
-  }
-
-  getPosition():Vector3 {
-    return new Vector3(
-      new Float64Array(this.buffer.buffer, 12 * Float64Array.BYTES_PER_ELEMENT, 3)
-    );
-  }
-
-  setXAxis(vec3:Vector3) {
+  setXAxis(vec3: Vector3) {
     this.setV(0, vec3.x);
     this.setV(1, vec3.y);
     this.setV(2, vec3.z);
   }
 
-  setYAxis(vec3:Vector3) {
+  setYAxis(vec3: Vector3) {
     this.setV(4, vec3.x);
     this.setV(5, vec3.y);
     this.setV(6, vec3.z);

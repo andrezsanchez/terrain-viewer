@@ -1,5 +1,5 @@
-import { Vector3 } from './vector3';
-import { Matrix4 } from './matrix4';
+import { Vector3 } from './Vector3';
+import { Matrix4 } from './Matrix4';
 import { Revisable } from './revisable';
 
 export class Camera extends Revisable {
@@ -14,9 +14,9 @@ export class Camera extends Revisable {
     this.poseInverse = new Matrix4();
     this.poseInverse.setIdentity();
 
-    this.up = Vector3.fromCoordinates(0, 0, 1);
+    this.up = new Vector3(0, 0, 1);
 
-    this.groundPosition = Vector3.fromCoordinates(0, 0, 0);
+    this.groundPosition = new Vector3(0, 0, 0);
     this.distance = 60;
     this.xRotationAngle = 0;
     this.zRotationAngle = Math.PI;
@@ -33,12 +33,13 @@ export class Camera extends Revisable {
 
     // pose = z * x * translateZ(-dist)
     position.copy(this.groundPosition);
+    this.pose.setPosition(position);
     Matrix4.multiply(this.pose, this.pose, this.zRotation);
     Matrix4.multiply(this.pose, this.pose, this.xRotation);
 
     const translation = new Matrix4();
     translation.setIdentity();
-    translation.getPosition().z = this.distance;
+    translation.setV(14, this.distance);
 
     Matrix4.multiply(this.pose, this.pose, translation);
 

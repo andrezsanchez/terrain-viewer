@@ -15,8 +15,8 @@ export function handleCameraInput(delta, inputManager, camera, viewUniform) {
   if (motion.x !== 0.0 || motion.y !== 0.0) {
     const position = camera.groundPosition;
     
-    Vector3.normalize(motion, motion);
-    Vector3.multiplyScalar(motion, motion, delta);
+    motion.normalize();
+    motion.multiplyScalar(delta);
 
     if (inputManager.keyStates.get('Shift')) {
       camera.zRotationAngle += motion.x * rotationSpeed;
@@ -24,11 +24,11 @@ export function handleCameraInput(delta, inputManager, camera, viewUniform) {
       camera.xRotationAngle = Math.max(Math.min(Math.PI / 2, camera.xRotationAngle), 0);
     }
     else {
-      Vector3.multiplyScalar(motion, motion, camera.distance);
+      motion.multiplyScalar(camera.distance);
       tempMatrix4.setIdentity();
       tempMatrix4.setPosition(motion);
       Matrix4.multiply(tempMatrix4, camera.zRotation, tempMatrix4);
-      Vector3.add(position, position, tempMatrix4.getPosition());
+      position.add(tempMatrix4.getPosition());
     }
 
     camera.updatePose();

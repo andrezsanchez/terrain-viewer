@@ -1,4 +1,4 @@
-import { Vector3 } from './vector3';
+import { Vector3 } from './Vector3';
 import { loadImage } from './loadImage';
 
 const token = 'pk.eyJ1IjoiYW5kcmV6c2FuY2hleiIsImEiOiJjajRzdTYzc3cwMWhjMndwMHFxb3Q2N3R5In0.zIr605z5UJEPehehu5HVYw';
@@ -15,7 +15,7 @@ export class WebMercatorTile {
 }
 
 export function getElevationTile(x, y, z) {
-  const coordinates = Vector3.fromCoordinates(x, y, z);
+  const coordinates = new Vector3(x, y, z);
   return loadImage(getUrl(coordinates)).then(imageData => {
     return new WebMercatorTile(imageData, coordinates);
   });
